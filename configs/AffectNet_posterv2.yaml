@@ -1,0 +1,45 @@
+model_name: POSTERv2
+# dataset configs
+dataset_name: AffectNet
+num_classes: 7
+train_root: D:\lg\datasets\AffectNet_sub
+val_root: D:\lg\datasets\AffectNet_sub
+metadata: D:\lg\datasets\AffectNet_sub\metadata7.csv
+train_frac: 1
+val_frac: 1
+sample_numbers: 5000
+train_folds: [0]
+val_folds: [1]
+train_size: 224
+val_size: 224
+transforms_name: QCS-affectnet #QCS-affectnet #POSTERv2-affectnet,QCS-rafdb,CUB200-2011
+train_shuffle: True
+batch_size: 128
+cache_img: False #小模型提速明显，大模型好像还变慢一点
+update_freq: 1 #多少mini batch，更新一次
+eval_freq: 1 #多少epoch，评估一次
+num_workers: 4
+pretrained_timm: True
+pretrained_local: ~ #D:\lg\logs\AffectNet\timm\resnet50.a1_in1k\2025-02-24-11-04\best.pt
+#optimizer configs
+schedule_name: ExponentialLR #CosineAnnealingLR
+use_sam: True
+rho: 0.05
+optimizer: AdamW
+init_lr: 0.000004
+weight_decay: 0.0001
+max_epochs: 300
+t_max: 300
+use_amp: False
+embedding_file: ~
+loss_name: cross_entropy
+metric_name: acc #main metric,以这个指标保存最佳模型，trainloop只计算这个指标
+metric_direction: up
+#在后面加/valid，以便和trianloop的日志数据区分开
+valid_metrics: {'acc/valid':0}
+debug_after: {'train':1000,'valid':1000} #debug after[train,valid]epochs
+seed: 0
+vae_head: True
+layer_embedding: True
+votes_sum: 0
+
