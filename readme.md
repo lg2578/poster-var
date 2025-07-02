@@ -1,0 +1,1 @@
+run main_encoder.py --c FerPlus_posterv2.yaml,all args are in config file
